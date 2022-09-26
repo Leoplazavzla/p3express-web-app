@@ -6,7 +6,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
         <Navigation/>
-
     </ThemeProvider>
   );
 }

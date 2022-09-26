@@ -27,7 +27,6 @@ const useStyles = makeStyles(theme => ({
 
 
 const NavBar = (props) => {
-    console.log(Strings.app.name)
     const classes = useStyles();
 
     return (

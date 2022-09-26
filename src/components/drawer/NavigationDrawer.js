@@ -1,11 +1,9 @@
 import React from 'react';
 import {Drawer, Divider} from "@mui/material"
 import {makeStyles} from "@mui/styles"
-//import NavBarList from "./NavBar/NavBarList"
+import DrawerNavBarList from "./DrawerNavBarList"
 import {IconButton} from "@mui/material";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-
-
 
 const useStyles = makeStyles(theme => ({
     drawer: {
@@ -43,11 +41,9 @@ const NavigationDrawer = (props) => {
                     <ChevronLeftIcon />
                 </IconButton>
             </div>
-            {/*<div className={classes.toolbar}>
-            </div>
             <Divider/>
-            <NavBarList/>
-            */}
+            <DrawerNavBarList/>
+
         </Drawer>
     );
 };

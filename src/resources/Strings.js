@@ -4,8 +4,9 @@ const Strings = () => {
             name: "P3 Express web app"
         },
         navBar: {
-            home: "Home",
-            ganttChart: "Gantt Chart"
+            dashboard: "Dashboard",
+            ganttChart: "Gantt Chart",
+            kanban: "Kanban board"
         },
     })
 }

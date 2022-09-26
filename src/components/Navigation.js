@@ -3,6 +3,7 @@ import NavBar from "./navbar/NavBar";
 import {makeStyles} from "@mui/styles";
 import NavigationDrawer from "./drawer/NavigationDrawer";
 import AppRoutes from "../AppRoutes";
+import {BrowserRouter} from "react-router-dom";
 
 
 const useStyles = makeStyles(theme => ({
@@ -31,7 +32,7 @@ const Navigation = () => {
     }
 
     return (
-            <>
+            <BrowserRouter>
                 <NavBar
                     handleDrawerOpen={handleDrawerOpen}
                 />
@@ -46,7 +47,7 @@ const Navigation = () => {
                         <AppRoutes/>
                     </main>
                 </div>
-            </>
+            </BrowserRouter>
     )
 }
 export default Navigation;
