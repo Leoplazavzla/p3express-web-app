@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import paths from "../resources/paths";
 import BaseLayout from "../layouts/BaseLayout";
 import ButtonNew from "../components/buttons/ButtonNew";
+import ProjectsList from "../layouts/projects/ProjectsList";
 
 const Dashboard = () => {
     return(
@@ -12,6 +13,7 @@ const Dashboard = () => {
             path={paths.projects.newProject}
             title={"Create new project"}
             />
+            <ProjectsList/>
         </BaseLayout>
     )
 }
