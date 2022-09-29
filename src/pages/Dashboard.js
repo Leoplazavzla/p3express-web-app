@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from "react-router-dom";
 import paths from "../resources/paths";
 import BaseLayout from "../layouts/BaseLayout";
 import ButtonNew from "../components/buttons/ButtonNew";

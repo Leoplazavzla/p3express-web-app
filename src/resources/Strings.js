@@ -20,6 +20,21 @@ const Strings = () => {
             home: "Back to home"
 
         },
+        projects: {
+            new: "New Project",
+            create: "Create Project",
+            title: "Project Title",
+            sponsor: "Sponsor",
+            projectTeam: "Project Team",
+            projectDescription: "Project Description",
+            deliverablesMap: "Deliverables Map",
+            projectSchedule: "Project Schedule",
+            followUpRegister: "Follow Up Register",
+            healthRegister: "Health Register",
+            lessonsLearned: "Lessons Learned",
+            projectBudget: "Project Budget",
+
+        }
     })
 }
 
