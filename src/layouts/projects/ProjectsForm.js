@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, Grid, TextField} from "@mui/material";
+import {Button, Grid, TextField, Typography} from "@mui/material";
 import {useDispatch} from "react-redux";
 import {getProjectDescription, getProjectName} from '../../redux/project.slice'
 import Strings from "../../resources/Strings";
@@ -26,7 +26,9 @@ const ProjectsForm = () => {
     return(
         <BaseLayout>
             <Grid>
-                <h3>New Project</h3>
+                <Typography component={"h3"}>
+                    {Strings.login.name}
+                </Typography>
                 <Grid item>
                     <TextField
                         type={"name"}

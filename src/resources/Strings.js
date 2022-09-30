@@ -11,14 +11,22 @@ const Strings = () => {
             register: "Register"
         },
         register: {
-            name: "Register"
+            name: "Register",
+            email: "Email",
+            password: "Password",
+        },
+        login: {
+            name: "Login",
+            email: "Email",
+            password: "Password",
+            invalidEmail: "Invalid email",
+            invalidAccount: "Invalid Account"
         },
         errorPage: {
             message: "Please return to the app",
             message2: "What to create some notes?",
             error: "Error 404! Page not found",
             home: "Back to home"
-
         },
         projects: {
             new: "New Project",
