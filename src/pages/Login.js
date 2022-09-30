@@ -1,7 +1,7 @@
 import BaseLayout from "../layouts/BaseLayout";
 import {Alert, Button, Grid, TextField} from "@mui/material";
 import Strings from "../resources/Strings";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {auth} from "../firebase/firebaseConfig"
 import {useAuth} from "../contexts/AuthContext";
 import {useNavigate} from "react-router-dom";
@@ -9,7 +9,14 @@ import {useNavigate} from "react-router-dom";
 const Login = () => {
 
     let navigate = useNavigate();
-    const {logIn} = useAuth();
+    const {logIn, currentUser} = useAuth();
+
+    useEffect(() => {
+        if(currentUser){
+            navigate("/")
+        }
+
+    }, [])
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

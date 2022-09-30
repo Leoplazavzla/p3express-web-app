@@ -8,12 +8,18 @@ const Strings = () => {
             ganttChart: "Gantt Chart",
             kanban: "Kanban board",
             login: "Login",
-            register: "Register"
+            register: "Register",
+            logout: "Logout"
         },
         register: {
             name: "Register",
             email: "Email",
             password: "Password",
+            create: "Create Account",
+            passwordConfirmation: "Confirm your password",
+            passDontMatch: "Passwords don't match",
+            addPassword: "Please add your password",
+            passLowerThanSix: "Please add a password with 6 characters or more"
         },
         login: {
             name: "Login",

@@ -9,7 +9,7 @@ import {Link} from "react-router-dom"
 import {useAuth} from "../../contexts/AuthContext";
 
 export default function DrawerNavBarList() {
-    const {currentUser, signOut} = useAuth();
+    const {currentUser, logOut} = useAuth();
 
     return (
         <Box sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
@@ -55,7 +55,7 @@ export default function DrawerNavBarList() {
                 {currentUser ?
                     <List>
                         <ListItem disablepadding={"false"} button>
-                            <ListItemButton onClick={signOut}>
+                            <ListItemButton onClick={logOut}>
                                 <ListItemText primary={Strings.navBar.logout}/>
                             </ListItemButton>
                         </ListItem>
@@ -69,7 +69,6 @@ export default function DrawerNavBarList() {
                         </ListItem>
                     </List>
                 }
-
             </nav>
         </Box>
     );
