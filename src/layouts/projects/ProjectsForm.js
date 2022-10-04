@@ -1,25 +1,35 @@
 import React, {useState} from 'react'
 import {Button, Grid, TextField, Typography} from "@mui/material";
 import {useDispatch} from "react-redux";
-import {getProjectDescription, getProjectName} from '../../redux/project.slice'
+import { addProject } from '../../redux/project.slice'
 import Strings from "../../resources/Strings";
 import BaseLayout from "../BaseLayout";
+import {useNavigate} from "react-router-dom";
 
 const ProjectsForm = () => {
     const dispatch = useDispatch();
-    const [projectTitle, setProjectTitle] = useState('');
-    const [projectDescription, setProjectDescription] = useState('');
+    const navigate = useNavigate();
+    const [project, setProject] = useState({
+        title: '',
+        description: ''
+    });
+
+    const handleChange = (e) => {
+        setProject({
+            ...project,
+            [e.target.name]: e.target.value
+        })
+    }
 
     const addNewProject = (event) => {
         event.preventDefault()
-        dispatch(getProjectName({
-            projectTitle: projectTitle,
-
+        dispatch(addProject({
+            ...project,
+            id: Math.random()
         }))
-        dispatch(getProjectDescription({
-            projectDescription: projectDescription
-        }))
-
+        setTimeout(() => {
+            navigate("/dashboard")
+        }, 2000)
 
     }
 
@@ -31,19 +41,21 @@ const ProjectsForm = () => {
                 </Typography>
                 <Grid item>
                     <TextField
+                        name={"title"}
                         type={"name"}
                         label={"Project Title"}
-                        value={projectTitle}
-                        onChange={ (e) => setProjectTitle(e.target.value)}
+                        value={project.title}
+                        onChange={ handleChange}
                     />
                 </Grid>
                 <Grid item>
                     <TextField
+                        name={"description"}
                         type={"text"}
                         multiline
                         label={"Project Description"}
-                        value={projectDescription}
-                        onChange={ (e) => setProjectDescription(e.target.value)}
+                        value={project.description}
+                        onChange={ handleChange}
                     />
                 </Grid>
                 <Grid item>
