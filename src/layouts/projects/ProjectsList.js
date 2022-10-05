@@ -1,6 +1,8 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {collection, getDocs} from "firebase/firestore";
 import db from "../../firebase/firebaseConfig";
+import MaterialReactTable from 'material-react-table';
+import ProjectTableFormatter from "../../tableFormatters/ProjectTableFormatter";
 
 const ProjectsList = () => {
 
@@ -19,26 +21,16 @@ const ProjectsList = () => {
             return fetchedProjects
         }
         fetchProjects().then(() => {})
-    }, [])
 
-    console.log(projects)
+    }, [])
 
 
     return(
         <div>
-            {projects ?
-                <div >
-                    {projects.map(project => {
-                        return (
-                            <div key={project.id}>
-                                <h1>{project.title}</h1>
-                                <p>{project.description}</p>
-                            </div>)
-                    })}
-                </div>
-            :
-            <div>No projects yet</div>
-            }
+                <MaterialReactTable
+                columns={ProjectTableFormatter}
+                data={projects}
+                />
         </div>
     )
 }
