@@ -1,7 +1,7 @@
 const Strings = () => {
     return ({
         app: {
-            name: "P3 Express web app"
+            name: "P3 Web App"
         },
         navBar: {
             dashboard: "Dashboard",
