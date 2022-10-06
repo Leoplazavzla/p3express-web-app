@@ -1,6 +1,7 @@
 import React from 'react'
 import {Route, Routes} from 'react-router-dom'
 import paths from "./resources/paths";
+import PrivateRoute from "./components/PrivateRoute";
 
 //pages
 import Home from "./pages/Home";
@@ -16,8 +17,8 @@ const AppRoutes = () => {
                 <Route exact path={paths.home} element={<Home/>} />
                 <Route exact path={paths.login} element={<Login/>} />
                 <Route exact path={paths.register} element={<Register/>} />
-                <Route path={paths.dashboard} element={<Dashboard/>} />
-                <Route path={paths.projects.newProject} element={<ProjectsForm/>} />
+                <Route path={paths.dashboard} element={<PrivateRoute> <Dashboard/> </PrivateRoute>} />
+                <Route path={paths.projects.newProject} element={<PrivateRoute> <ProjectsForm/> </PrivateRoute>} />
                 <Route path={"*"} element={<ErrorPage/>} />
         </Routes>
     )
