@@ -41,6 +41,9 @@ const Login = () => {
         }catch (error){
             console.log(error)
             setErrorMessage(Strings.login.invalidAccount)
+            setTimeout(() => {
+                setLoading(false)
+            }, 1000)
         }
     }
 
