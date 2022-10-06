@@ -13,7 +13,6 @@ const ProjectsForm = () => {
     const navigate = useNavigate();
     const [project, setProject] = useState({
         title: '',
-        description: '',
         portfolio: '',
         sponsor: '',
         projectManager: '',
@@ -79,17 +78,6 @@ const ProjectsForm = () => {
                         type={"text"}
                         label={Strings.projects.projectManager}
                         value={project.projectManager}
-                        onChange={handleChange}
-                    />
-                </Grid>
-                <Grid item>
-                    <TextField
-                        margin="normal"
-                        name={"description"}
-                        type={"text"}
-                        multiline
-                        label={"Project Description"}
-                        value={project.description}
                         onChange={handleChange}
                     />
                 </Grid>
