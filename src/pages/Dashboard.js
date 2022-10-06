@@ -5,12 +5,12 @@ import ButtonNew from "../components/buttons/ButtonNew";
 import ProjectsList from "../layouts/projects/ProjectsList";
 
 const Dashboard = () => {
-    return(
+    return (
         <BaseLayout>
             <h1>Dashboard</h1>
             <ButtonNew
-            path={paths.projects.newProject}
-            title={"Create new project"}
+                path={paths.projects.newProject}
+                title={"Create new project"}
             />
             <ProjectsList/>
         </BaseLayout>

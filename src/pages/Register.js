@@ -7,7 +7,6 @@ import BaseLayout from "../layouts/BaseLayout";
 import {Alert, Button, Grid, TextField} from "@mui/material";
 
 const Register = () => {
-    console.log(auth)
 
     let navigate = useNavigate();
     const {register, currentUser} = useAuth();
@@ -22,36 +21,35 @@ const Register = () => {
     const [isValid, setIsValid] = useState(false)
 
     useEffect(() => {
-        if(currentUser){
+        if (currentUser) {
             navigate("/")
         }
-
     }, [])
 
     const userRegister = async (e) => {
         e.preventDefault()
         validations()
-        if(!registerEmail.trim()){
+        if (!registerEmail.trim()) {
             console.log("insert email")
             return
         }
-        if(!registerPassword.trim()){
+        if (!registerPassword.trim()) {
             console.log("insert password")
             return
         }
-        if(!confirmationPassword.trim()){
+        if (!confirmationPassword.trim()) {
             console.log("insert  confirm password")
             return
         }
 
-        if(isValid === true){
+        if (isValid === true) {
             console.log("is valid")
             try {
                 setErrorMessage(null)
                 setLoading(true)
                 await register(auth, registerEmail, registerPassword)
                 navigate("/")
-            } catch (err){
+            } catch (err) {
                 setErrorMessage("Please check your details")
             }
         }
@@ -66,39 +64,38 @@ const Register = () => {
             setErrorMessage(Strings.register.passDontMatch)
             setConfirmationPassword("")
         }
-        if(registerPassword === '' || confirmationPassword === ''){
+        if (registerPassword === '' || confirmationPassword === '') {
             setRegisterPasswordError(Strings.register.addPassword)
             setErrorMessage(Strings.register.addPassword)
             setConfirmationPassword("")
         }
-        if(registerPassword.length < 6 || confirmationPassword < 6){
+        if (registerPassword.length < 6 || confirmationPassword < 6) {
             console.log(registerPassword.length)
             setRegisterPasswordError(Strings.register.passLowerThanSix)
             setErrorMessage(Strings.register.passLowerThanSix)
             setConfirmationPassword("")
         }
 
-        if(regEx.test(registerEmail) === false || registerEmail === ""){
+        if (regEx.test(registerEmail) === false || registerEmail === "") {
             setEmailError(true)
             setErrorMessage(Strings.register.invalidEmail)
         }
-        if(regEx.test(registerEmail) === true && registerEmail !== ''){
+        if (regEx.test(registerEmail) === true && registerEmail !== '') {
             setEmailError(false)
             console.log("email valid")
-        }else {
+        } else {
             setEmailError(false)
         }
 
-        if(registerPasswordError === false && emailError === false){
+        if (registerPasswordError === false && emailError === false) {
             console.log(registerPasswordError, emailError)
             console.log(regEx.test(registerEmail))
             setIsValid(true)
             console.log("Is Valid?: ", isValid)
         }
-
     }
 
-    return(
+    return (
         <BaseLayout>
             <Grid>
                 {errorMessage ? (<Alert severity={"error"}>{errorMessage}</Alert>) : null}
@@ -108,20 +105,18 @@ const Register = () => {
                         type={"email"}
                         label={Strings.register.email}
                         value={registerEmail}
-                        onChange={(e) => setRegisterEmail(e.target.value) }
+                        onChange={(e) => setRegisterEmail(e.target.value)}
                     />
                 </Grid>
-
                 <Grid item>
                     <TextField
                         margin="normal"
                         label={Strings.register.password}
                         type={"password"}
                         value={registerPassword}
-                        onChange={(e) => setRegisterPassword(e.target.value) }
+                        onChange={(e) => setRegisterPassword(e.target.value)}
                     />
                 </Grid>
-
                 <Grid item>
                     <TextField
                         margin="normal"
@@ -133,7 +128,6 @@ const Register = () => {
                         error={Boolean(registerPasswordError)}
                     />
                 </Grid>
-
                 <Grid item>
                     <Button
                         disabled={loading}
@@ -144,7 +138,6 @@ const Register = () => {
                         {Strings.register.create}
                     </Button>
                 </Grid>
-
             </Grid>
         </BaseLayout>
     )

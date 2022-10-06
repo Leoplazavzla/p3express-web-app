@@ -1,36 +1,43 @@
-import {useEffect, useMemo, useState} from "react";
-import {collection, getDocs} from "firebase/firestore";
-import db from "../../firebase/firebaseConfig";
+import {useEffect, useState} from "react";
+import {getProjectDocs} from '../../firebase/firebaseFunctions'
 import MaterialReactTable from 'material-react-table';
 import ProjectTableFormatter from "../../tableFormatters/ProjectTableFormatter";
+import {Box, Typography} from "@mui/material";
+import {useAuth} from "../../contexts/AuthContext";
 
 const ProjectsList = () => {
 
+    const {currentUser} = useAuth();
     const [projects, setProjects] = useState([]);
 
-    const getProjectDocs = async () => {
-        const projectDocRef = await collection(db, 'projects')
-        const docSnap = await getDocs(projectDocRef)
-        return docSnap.docs.map(doc => ({...doc.data()}))
-    }
-
     useEffect(() => {
-        const fetchProjects = async() => {
-            const fetchedProjects = await getProjectDocs()
+        const fetchProjects = async () => {
+            const fetchedProjects = await getProjectDocs(currentUser.email)
             await setProjects(fetchedProjects)
             return fetchedProjects
         }
-        fetchProjects().then(() => {})
+        fetchProjects().then(() => {
+        })
 
     }, [])
 
-
-    return(
+    return (
         <div>
-                <MaterialReactTable
+            <MaterialReactTable
                 columns={ProjectTableFormatter}
                 data={projects}
-                />
+                renderDetailPanel={({row}) => (
+                    <Box
+                        sx={{
+                            display: 'grid',
+                            margin: 'auto',
+                            gridTemplateColumns: '1fr 1fr',
+                            width: '100%',
+                        }}
+                    >
+                    </Box>
+                )}
+            />
         </div>
     )
 }

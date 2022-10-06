@@ -1,7 +1,7 @@
 import ProjectsForm from "../../layouts/projects/ProjectsForm";
 
 const NewProject = () => {
-    return(
+    return (
         <ProjectsForm/>
     )
 }

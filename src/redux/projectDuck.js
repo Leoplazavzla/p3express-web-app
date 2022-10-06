@@ -1,6 +1,6 @@
 // constant
 const initialState = {
-    projectArray: []
+    projectTitle: ''
 }
 
 // types
@@ -12,7 +12,7 @@ const GET_PROJECT_NAME = 'GET_PROJECT_NAME'
 export default function projectReducer(state = initialState, action) {
     switch (action.type){
         case GET_PROJECT_NAME:
-            return {...state, projectArray: action.payload}
+            return {...state, projectTitle: action.payload}
         default:
             return state;
 
@@ -21,10 +21,10 @@ export default function projectReducer(state = initialState, action) {
 }
 
 // actions
-export const getProjectNameAction = () => (dispatch, getState) => {
+export const getProjectNameAction = () => (dispatch, action) => {
     dispatch({
         type: GET_PROJECT_NAME,
-        payload: getState
+        payload: action
     })
 
 }

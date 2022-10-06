@@ -15,7 +15,6 @@ const Login = () => {
         if(currentUser){
             navigate("/")
         }
-
     }, [])
 
     const [email, setEmail] = useState('');
@@ -25,7 +24,6 @@ const Login = () => {
 
     const singIn = async (e) => {
         e.preventDefault()
-
         const regEx = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
 
         if(regEx.test(email) || email === ""){
@@ -40,13 +38,10 @@ const Login = () => {
             await logIn(auth, email, password)
             setLoading(false)
             navigate("/dashboard")
-
-
         }catch (error){
             console.log(error)
             setErrorMessage(Strings.login.invalidAccount)
         }
-
     }
 
     return(
@@ -61,15 +56,14 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value) }
                     />
                 </Grid>
-
                 <Grid item>
                     <TextField
                         label={Strings.login.password}
+                        type={"password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value) }
                     />
                 </Grid>
-
                 <Grid item>
                     <Button
                         disabled={loading}
@@ -80,7 +74,6 @@ const Login = () => {
                         {Strings.login.name}
                     </Button>
                 </Grid>
-
             </Grid>
         </BaseLayout>
     )

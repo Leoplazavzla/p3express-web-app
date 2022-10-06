@@ -16,24 +16,28 @@ export default function DrawerNavBarList() {
             {currentUser ?
                 <nav aria-label="main mailbox folders">
                     <List>
-                        <ListItem button disablepadding={"false"} component={Link} to={paths.dashboard}>
+                        <ListItem
+                            button
+                            disablepadding={"false"}
+                            component={Link}
+                            to={paths.dashboard}
+                        >
                             <ListItemIcon>
                                 <DashboardIcon/>
                             </ListItemIcon>
                             <ListItemText primary={Strings.navBar.dashboard}/>
                         </ListItem>
-
                         <ListItem
                             disablepadding={"false"}
                             color={"primary"} button
                             component={Link}
-                            to={paths.ganttChart}>
+                            to={paths.ganttChart}
+                        >
                             <ListItemIcon>
                                 <AccountTreeIcon/>
                             </ListItemIcon>
                             <ListItemText primary={Strings.navBar.ganttChart}/>
                         </ListItem>
-
                         <ListItem
                             disablepadding={"false"}
                             color={"primary"} button
@@ -44,7 +48,6 @@ export default function DrawerNavBarList() {
                             </ListItemIcon>
                             <ListItemText primary={Strings.navBar.kanban}/>
                         </ListItem>
-
                     </List>
                 </nav>
                 :

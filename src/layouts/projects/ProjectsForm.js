@@ -1,13 +1,15 @@
 import React, {useState} from 'react'
 import {Button, Grid, TextField, Typography} from "@mui/material";
 import {useDispatch} from "react-redux";
-import { addProject } from '../../redux/project.slice'
 import Strings from "../../resources/Strings";
 import BaseLayout from "../BaseLayout";
 import {useNavigate} from "react-router-dom";
+import {useAuth} from "../../contexts/AuthContext";
+import {addProject} from '../../firebase/firebaseFunctions'
 
 const ProjectsForm = () => {
-    const dispatch = useDispatch();
+    const {currentUser} = useAuth();
+    //const dispatch = useDispatch();
     const navigate = useNavigate();
     const [project, setProject] = useState({
         title: '',
@@ -24,19 +26,17 @@ const ProjectsForm = () => {
         })
     }
 
-    const addNewProject = (event) => {
+    const addNewProject = async (event) => {
         event.preventDefault()
-        dispatch(addProject({
-            ...project,
-            id: Math.random()
-        }))
+        console.log('dont know what happens')
+        await addProject(currentUser.email, project)
+
         setTimeout(() => {
             navigate("/dashboard")
         }, 2000)
-
     }
 
-    return(
+    return (
         <BaseLayout>
             <Grid>
                 <Typography component={"h3"}>
@@ -49,7 +49,7 @@ const ProjectsForm = () => {
                         type={"name"}
                         label={Strings.projects.title}
                         value={project.title}
-                        onChange={ handleChange}
+                        onChange={handleChange}
                     />
                 </Grid>
                 <Grid item>
@@ -59,7 +59,7 @@ const ProjectsForm = () => {
                         type={"text"}
                         label={Strings.projects.portfolio}
                         value={project.portfolio}
-                        onChange={ handleChange}
+                        onChange={handleChange}
                     />
                 </Grid>
                 <Grid item>
@@ -69,7 +69,7 @@ const ProjectsForm = () => {
                         type={"text"}
                         label={Strings.projects.sponsor}
                         value={project.sponsor}
-                        onChange={ handleChange}
+                        onChange={handleChange}
                     />
                 </Grid>
                 <Grid item>
@@ -79,7 +79,7 @@ const ProjectsForm = () => {
                         type={"text"}
                         label={Strings.projects.projectManager}
                         value={project.projectManager}
-                        onChange={ handleChange}
+                        onChange={handleChange}
                     />
                 </Grid>
                 <Grid item>
@@ -90,7 +90,7 @@ const ProjectsForm = () => {
                         multiline
                         label={"Project Description"}
                         value={project.description}
-                        onChange={ handleChange}
+                        onChange={handleChange}
                     />
                 </Grid>
                 <Grid item>
@@ -104,7 +104,6 @@ const ProjectsForm = () => {
                 </Grid>
             </Grid>
         </BaseLayout>
-
     )
 }
 
