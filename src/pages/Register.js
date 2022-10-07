@@ -55,9 +55,7 @@ const Register = () => {
         }
 
         if (isValid === true) {
-            //console.log("is valid")
             try {
-                //console.log('im inside')
                 setErrorMessage(null)
                 setLoading(true)
                 await register(auth, registerEmail, registerPassword)
@@ -65,14 +63,13 @@ const Register = () => {
                         setRegisteringUser(true)
                     })
                     .then(() => {
-                    setTimeout(() => {
-                        setRegisteringUser(false)
-                        navigate("/")
-                    }, 2000)
-                })
+                        setTimeout(() => {
+                            setRegisteringUser(false)
+                        }, 2000)
+                    })
             } catch (err) {
-                //console.log(err)
-                //setErrorMessage("Please check your details")
+                console.log(err)
+                setErrorMessage("Please check your details")
             }
         }
         setLoading(false)

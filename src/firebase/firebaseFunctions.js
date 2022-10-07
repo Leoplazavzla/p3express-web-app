@@ -1,5 +1,6 @@
-import { doc, addDoc, updateDoc, collection, getDocs, deleteDoc, setDoc} from "firebase/firestore";
+import {addDoc, collection, doc, getDoc, getDocs, setDoc} from "firebase/firestore";
 import db from '../firebase/firebaseConfig'
+
 
 export const addProject = async(userEmail, projectData) => {
     const colRef = await collection(db, `${userEmail}.projects`)
@@ -17,7 +18,10 @@ export const createRoles = async (id, email, role) => {
     await setDoc(usersRef, {email: email, role: role})
 }
 
-export const getUsers = async (id) => {
-
-
+export const getUserRoles = async (id) => {
+    const rolesRef = doc(db, `users/${id}`)
+    const roleData =  await getDoc(rolesRef)
+    //console.log(roleData.data())
+    const userRole =  roleData.data().role
+    return userRole
 }
