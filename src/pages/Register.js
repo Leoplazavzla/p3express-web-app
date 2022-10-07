@@ -5,6 +5,7 @@ import Strings from "../resources/Strings";
 import {auth} from "../firebase/firebaseConfig";
 import BaseLayout from "../layouts/BaseLayout";
 import {Alert, Button, Grid, TextField} from "@mui/material";
+import {createRoles} from "../firebase/firebaseFunctions";
 
 const Register = () => {
 
@@ -18,39 +19,60 @@ const Register = () => {
     const [registerPasswordError, setRegisterPasswordError] = useState(false)
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
-    const [isValid, setIsValid] = useState(false)
+    const [isValid, setIsValid] = useState(false);
+    const [registeringUser, setRegisteringUser] = useState(false);
+
+    const adduserToDatabase = async (user) => {
+        const defaultRole = 'consultant';
+        await createRoles(user.uid, user.email, defaultRole)
+    }
 
     useEffect(() => {
+
         if (currentUser) {
-            navigate("/")
+            adduserToDatabase(currentUser)
+            navigate("/dashboard")
         }
-    }, [])
+    }, [registeringUser])
 
     const userRegister = async (e) => {
         e.preventDefault()
         validations()
         if (!registerEmail.trim()) {
-            console.log("insert email")
+            //console.log("insert email")
+            setEmailError(true)
             return
         }
         if (!registerPassword.trim()) {
-            console.log("insert password")
+            //console.log("insert password")
+            setRegisterPasswordError(true)
             return
         }
         if (!confirmationPassword.trim()) {
-            console.log("insert  confirm password")
+            //console.log("insert  confirm password")
+            setRegisterPasswordError(true)
             return
         }
 
         if (isValid === true) {
-            console.log("is valid")
+            //console.log("is valid")
             try {
+                //console.log('im inside')
                 setErrorMessage(null)
                 setLoading(true)
                 await register(auth, registerEmail, registerPassword)
-                navigate("/")
+                    .then(() => {
+                        setRegisteringUser(true)
+                    })
+                    .then(() => {
+                    setTimeout(() => {
+                        setRegisteringUser(false)
+                        navigate("/")
+                    }, 2000)
+                })
             } catch (err) {
-                setErrorMessage("Please check your details")
+                //console.log(err)
+                //setErrorMessage("Please check your details")
             }
         }
         setLoading(false)
@@ -70,7 +92,6 @@ const Register = () => {
             setConfirmationPassword("")
         }
         if (registerPassword.length < 6 || confirmationPassword < 6) {
-            console.log(registerPassword.length)
             setRegisterPasswordError(Strings.register.passLowerThanSix)
             setErrorMessage(Strings.register.passLowerThanSix)
             setConfirmationPassword("")
@@ -82,16 +103,14 @@ const Register = () => {
         }
         if (regEx.test(registerEmail) === true && registerEmail !== '') {
             setEmailError(false)
-            console.log("email valid")
         } else {
             setEmailError(false)
         }
 
         if (registerPasswordError === false && emailError === false) {
-            console.log(registerPasswordError, emailError)
-            console.log(regEx.test(registerEmail))
+            //console.log(regEx.test(registerEmail))
             setIsValid(true)
-            console.log("Is Valid?: ", isValid)
+            //console.log("Is Valid?: ", isValid)
         }
     }
 
@@ -106,6 +125,7 @@ const Register = () => {
                         label={Strings.register.email}
                         value={registerEmail}
                         onChange={(e) => setRegisterEmail(e.target.value)}
+                        error={emailError}
                     />
                 </Grid>
                 <Grid item>
@@ -115,6 +135,7 @@ const Register = () => {
                         type={"password"}
                         value={registerPassword}
                         onChange={(e) => setRegisterPassword(e.target.value)}
+                        error={registerPasswordError}
                     />
                 </Grid>
                 <Grid item>
@@ -125,7 +146,7 @@ const Register = () => {
                         type={"password"}
                         value={confirmationPassword || ''}
                         onChange={(e) => setConfirmationPassword(e.target.value)}
-                        error={Boolean(registerPasswordError)}
+                        error={registerPasswordError}
                     />
                 </Grid>
                 <Grid item>

@@ -27,7 +27,6 @@ const ProjectsForm = () => {
 
     const addNewProject = async (event) => {
         event.preventDefault()
-        console.log('dont know what happens')
         await addProject(currentUser.email, project)
 
         setTimeout(() => {
