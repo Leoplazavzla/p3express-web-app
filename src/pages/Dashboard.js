@@ -2,19 +2,31 @@ import React, {useEffect, useState} from 'react'
 import paths from "../resources/paths";
 import BaseLayout from "../layouts/BaseLayout";
 import ButtonNew from "../components/buttons/ButtonNew";
-import ProjectsList from "../layouts/projects/ProjectsList";
 import {useAuth} from "../contexts/AuthContext";
 import {useDispatch, useSelector} from "react-redux";
 import {getRole} from "../redux/rolesSlice";
-import {CircularProgress} from "@mui/material";
-
+import {Card, CardContent, CardHeader, CircularProgress, Grid} from "@mui/material";
+import {getProjectDocs} from "../firebase/firebaseFunctions";
 
 const Dashboard = () => {
 
     const {getUserRole, currentUser} = useAuth();
     const dispatch = useDispatch();
-    const [userRole, setUserRole] = useState('');
     const userRoleState = useSelector(state => state.roles)
+
+    const [userRole, setUserRole] = useState('');
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            const fetchedProjects = await getProjectDocs(currentUser.email)
+            await setProjects(fetchedProjects)
+            return fetchedProjects
+        }
+        fetchProjects().then(() => {
+        })
+
+    }, [])
 
     useEffect(() => {
         if(userRole){
@@ -38,6 +50,19 @@ const Dashboard = () => {
                 <CircularProgress/>
                 :
                 <div>
+                    <Grid container>
+                        <Grid item xs={4}>
+                            <Card>
+                                <CardHeader title={"Projects"} component={"h3"}/>
+                                <CardContent>
+                                    {`${projects.length} projects`}
+                                </CardContent>
+
+                            </Card>
+                        </Grid>
+                    </Grid>
+                    <br/>
+
                     {userRoleState.role === 'consultant' ?
                         <div></div>
                         :
@@ -48,11 +73,8 @@ const Dashboard = () => {
                             />
                         </>
                 }
-                    <ProjectsList/>
                 </div>
-
             }
-
         </BaseLayout>
     )
 }

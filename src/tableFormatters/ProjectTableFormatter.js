@@ -17,10 +17,6 @@ function ProjectTableFormatter() {
             accessorKey: 'projectManager',
             header: 'Project Manager'
         },
-        {
-            accessorKey: 'description',
-            header: 'Description'
-        },
 
     ]
 }

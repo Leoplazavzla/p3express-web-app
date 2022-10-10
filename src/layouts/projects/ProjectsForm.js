@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Button, Grid, TextField, Typography} from "@mui/material";
 import {useDispatch} from "react-redux";
+import paths from '../../resources/paths'
 import Strings from "../../resources/Strings";
 import BaseLayout from "../BaseLayout";
 import {useNavigate} from "react-router-dom";
@@ -30,7 +31,7 @@ const ProjectsForm = () => {
         await addProject(currentUser.email, project)
 
         setTimeout(() => {
-            navigate("/dashboard")
+            navigate(paths.projects.list)
         }, 2000)
     }
 
