@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {getProjectDocs} from '../../firebase/firebaseFunctions'
 import MaterialReactTable from 'material-react-table';
 import ProjectTableFormatter from "../../tableFormatters/ProjectTableFormatter";
-import {Box, Typography} from "@mui/material";
+import {Box, CircularProgress, Typography} from "@mui/material";
 import {useAuth} from "../../contexts/AuthContext";
 
 const ProjectsList = () => {
@@ -23,21 +23,26 @@ const ProjectsList = () => {
 
     return (
         <div>
-            <MaterialReactTable
-                columns={ProjectTableFormatter}
-                data={projects}
-                renderDetailPanel={({row}) => (
-                    <Box
-                        sx={{
-                            display: 'grid',
-                            margin: 'auto',
-                            gridTemplateColumns: '1fr 1fr',
-                            width: '100%',
-                        }}
-                    >
-                    </Box>
-                )}
-            />
+            {projects === [] ?
+            <CircularProgress/>
+                :
+                <MaterialReactTable
+                    columns={ProjectTableFormatter}
+                    data={projects}
+                    renderDetailPanel={({row}) => (
+                        <Box
+                            sx={{
+                                display: 'grid',
+                                margin: 'auto',
+                                gridTemplateColumns: '1fr 1fr',
+                                width: '100%',
+                            }}
+                        >
+                        </Box>
+                    )}
+                />
+            }
+
         </div>
     )
 }

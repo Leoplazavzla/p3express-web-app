@@ -1,7 +1,7 @@
 import BaseLayout from "../layouts/BaseLayout";
 import {Alert, Button, Grid, TextField} from "@mui/material";
 import Strings from "../resources/Strings";
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {auth} from "../firebase/firebaseConfig"
 import {useAuth} from "../contexts/AuthContext";
 import {useNavigate} from "react-router-dom";
@@ -9,13 +9,7 @@ import {useNavigate} from "react-router-dom";
 const Login = () => {
 
     let navigate = useNavigate();
-    const {logIn, currentUser} = useAuth();
-
-    useEffect(() => {
-        if(currentUser){
-            navigate("/")
-        }
-    }, [])
+    const {logIn} = useAuth();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -36,8 +30,10 @@ const Login = () => {
             setErrorMessage(null)
             setLoading(true)
             await logIn(auth, email, password)
-            setLoading(false)
-            navigate("/dashboard")
+                .then(() => {
+                    setLoading(false)
+                    navigate("/dashboard")
+                })
         }catch (error){
             console.log(error)
             setErrorMessage(Strings.login.invalidAccount)

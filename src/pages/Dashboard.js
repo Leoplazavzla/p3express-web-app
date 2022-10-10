@@ -4,12 +4,23 @@ import BaseLayout from "../layouts/BaseLayout";
 import ButtonNew from "../components/buttons/ButtonNew";
 import ProjectsList from "../layouts/projects/ProjectsList";
 import {useAuth} from "../contexts/AuthContext";
+import {useDispatch, useSelector} from "react-redux";
+import {getRole} from "../redux/rolesSlice";
+import {CircularProgress} from "@mui/material";
 
 
 const Dashboard = () => {
 
     const {getUserRole, currentUser} = useAuth();
+    const dispatch = useDispatch();
     const [userRole, setUserRole] = useState('');
+    const userRoleState = useSelector(state => state.roles)
+
+    useEffect(() => {
+        if(userRole){
+            dispatch(getRole(userRole))
+        }
+    }, [dispatch, userRole])
 
     useEffect(() => {
         if(currentUser){
@@ -20,20 +31,28 @@ const Dashboard = () => {
 
     }, [currentUser])
 
-        console.log(userRole)
     return (
         <BaseLayout>
             <h1>Dashboard</h1>
-            {userRole === 'consultant' ?
-                <div></div>
+            {userRoleState.role === '' ?
+                <CircularProgress/>
                 :
-                <ButtonNew
-                    path={paths.projects.newProject}
-                    title={"Create new project"}
-                />
+                <div>
+                    {userRoleState.role === 'consultant' ?
+                        <div></div>
+                        :
+                        <>
+                            <ButtonNew
+                            path={paths.projects.newProject}
+                            title={"Create new project"}
+                            />
+                        </>
+                }
+                    <ProjectsList/>
+                </div>
+
             }
 
-            <ProjectsList/>
         </BaseLayout>
     )
 }

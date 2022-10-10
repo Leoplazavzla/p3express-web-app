@@ -1,11 +1,13 @@
 import {configureStore} from "@reduxjs/toolkit";
 //import projectReducer from "./projectDuck";
 import projectReducer from './project.slice'
+import rolesReducer from './rolesSlice'
 
 
 export const store = configureStore({
     reducer: {
-        projects: projectReducer
+        projects: projectReducer,
+        roles: rolesReducer
     }
 })
 
