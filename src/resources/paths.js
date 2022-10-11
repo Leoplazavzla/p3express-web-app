@@ -9,6 +9,14 @@ const paths = {
     projects: {
         newProject: "/projects/new",
         list: "/projects/list"
+    },
+    users: {
+        newUser: "/users/new",
+        list: "/users/list"
+    },
+    portfolios: {
+        newPortfolio: "/portfolios/new",
+        list: "/portfolios/list"
     }
 }
 

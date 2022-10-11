@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {getProjectDocs} from '../../firebase/firebaseFunctions'
 import MaterialReactTable from 'material-react-table';
 import ProjectTableFormatter from "../../tableFormatters/ProjectTableFormatter";
-import {Box, CircularProgress, Typography} from "@mui/material";
+import {Box, CircularProgress} from "@mui/material";
 import {useAuth} from "../../contexts/AuthContext";
 
 const ProjectsList = () => {
@@ -18,7 +18,6 @@ const ProjectsList = () => {
         }
         fetchProjects().then(() => {
         })
-
     }, [])
 
     return (
@@ -42,7 +41,6 @@ const ProjectsList = () => {
                     )}
                 />
             }
-
         </div>
     )
 }

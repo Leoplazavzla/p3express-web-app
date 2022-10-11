@@ -5,8 +5,11 @@ import ButtonNew from "../components/buttons/ButtonNew";
 import {useAuth} from "../contexts/AuthContext";
 import {useDispatch, useSelector} from "react-redux";
 import {getRole} from "../redux/rolesSlice";
-import {Card, CardContent, CardHeader, CircularProgress, Grid} from "@mui/material";
+import {Button, CircularProgress, Grid} from "@mui/material";
 import {getProjectDocs} from "../firebase/firebaseFunctions";
+import Strings from "../resources/Strings";
+import CardComponent from '../components/CardComponent'
+import {Link} from "react-router-dom";
 
 const Dashboard = () => {
 
@@ -26,7 +29,7 @@ const Dashboard = () => {
         fetchProjects().then(() => {
         })
 
-    }, [])
+    }, [currentUser])
 
     useEffect(() => {
         if(userRole){
@@ -50,27 +53,37 @@ const Dashboard = () => {
                 <CircularProgress/>
                 :
                 <div>
-                    <Grid container>
-                        <Grid item xs={4}>
-                            <Card>
-                                <CardHeader title={"Projects"} component={"h3"}/>
-                                <CardContent>
-                                    {`${projects.length} projects`}
-                                </CardContent>
 
-                            </Card>
-                        </Grid>
-                    </Grid>
                     <br/>
 
                     {userRoleState.role === 'consultant' ?
-                        <div></div>
+                        <div>
+                            <Grid container>
+                                {projects === [] ?
+                                    <div></div>
+                                    :
+                                    <CardComponent
+                                        title={Strings.projects.name}
+                                        data={projects}
+                                        role={userRoleState.role}
+                                    />
+                                }
+                            </Grid>
+                        </div>
                         :
                         <>
-                            <ButtonNew
-                            path={paths.projects.newProject}
-                            title={"Create new project"}
-                            />
+                            <Grid container>
+                                {projects === [] ?
+                                    <div></div>
+                                    :
+                                    <CardComponent
+                                        title={Strings.projects.name}
+                                        data={projects}
+                                        role={userRoleState.role}
+                                    />
+                                }
+                            </Grid>
+
                         </>
                 }
                 </div>

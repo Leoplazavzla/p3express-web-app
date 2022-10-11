@@ -26,7 +26,7 @@ const Strings = () => {
             email: "Email",
             password: "Password",
             invalidEmail: "Invalid email",
-            invalidAccount: "Invalid Account"
+            invalidAccount: "Invalid account"
         },
         errorPage: {
             message: "Please return to the app",
@@ -35,22 +35,35 @@ const Strings = () => {
             home: "Back to home"
         },
         projects: {
-            new: "New Project",
-            create: "Create Project",
-            title: "Project Title",
+            new: "New project",
+            name: "Projects",
+            viewProjects: "View projects",
+            create: "Create project",
+            title: "Project title",
             portfolio: "Portfolio / Program",
             sponsor: "Sponsor",
             projectTeam: "Project Team",
             projectManager: "Project Manager",
             month: "Month",
-            projectDescription: "Project Description",
-            deliverablesMap: "Deliverables Map",
-            projectSchedule: "Project Schedule",
-            followUpRegister: "Follow Up Register",
-            healthRegister: "Health Register",
-            lessonsLearned: "Lessons Learned",
-            projectBudget: "Project Budget",
-
+            projectDescription: "Project description",
+            deliverablesMap: "Deliverables map",
+            projectSchedule: "Project schedule",
+            followUpRegister: "Follow up register",
+            healthRegister: "Health register",
+            lessonsLearned: "Lessons learned",
+            projectBudget: "Project budget",
+        },
+        portfolios: {
+            new: "New portfolio",
+            name: "Portfolios",
+            viewPortfolios: "View portfolios",
+            create: "Create portfolio"
+        },
+        users: {
+            new: "New user",
+            name: "Users",
+            viewUsers: "View users",
+            create: "Create user"
         }
     })
 }
