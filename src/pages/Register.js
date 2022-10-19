@@ -5,12 +5,15 @@ import Strings from "../resources/Strings";
 import {auth} from "../firebase/firebaseConfig";
 import BaseLayout from "../layouts/BaseLayout";
 import {Alert, Button, Grid, TextField} from "@mui/material";
-import {createRoles} from "../firebase/firebaseFunctions";
+import {createRoles, addCompanyName} from "../firebase/firebaseFunctions";
+import CompanyNamesDropdown from "../components/dropdowns/CompanyNamesDropdown";
+import {useSelector} from "react-redux";
 
 const Register = () => {
 
     let navigate = useNavigate();
     const {register, currentUser} = useAuth();
+    const companyNameState = useSelector(state => state.companyName)
 
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
@@ -33,6 +36,7 @@ const Register = () => {
             adduserToDatabase(currentUser)
             navigate("/dashboard")
         }
+
     }, [registeringUser])
 
     const userRegister = async (e) => {
@@ -111,10 +115,16 @@ const Register = () => {
         }
     }
 
+
+
     return (
         <BaseLayout>
             <Grid>
+                <h2>Register</h2>
                 {errorMessage ? (<Alert severity={"error"}>{errorMessage}</Alert>) : null}
+                <Grid item>
+                    <CompanyNamesDropdown/>
+                </Grid>
                 <Grid item>
                     <TextField
                         margin="normal"
@@ -125,6 +135,7 @@ const Register = () => {
                         error={emailError}
                     />
                 </Grid>
+
                 <Grid item>
                     <TextField
                         margin="normal"

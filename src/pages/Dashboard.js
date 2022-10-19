@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import paths from "../resources/paths";
 import BaseLayout from "../layouts/BaseLayout";
-import ButtonNew from "../components/buttons/ButtonNew";
 import {useAuth} from "../contexts/AuthContext";
 import {useDispatch, useSelector} from "react-redux";
 import {getRole} from "../redux/rolesSlice";
-import {Button, CircularProgress, Grid} from "@mui/material";
+import { CircularProgress, Grid} from "@mui/material";
 import {getProjectDocs} from "../firebase/firebaseFunctions";
 import Strings from "../resources/Strings";
 import CardComponent from '../components/CardComponent'
-import {Link} from "react-router-dom";
 
 const Dashboard = () => {
 
@@ -28,7 +25,6 @@ const Dashboard = () => {
         }
         fetchProjects().then(() => {
         })
-
     }, [currentUser])
 
     useEffect(() => {
@@ -43,7 +39,6 @@ const Dashboard = () => {
                 return setUserRole(response)
             })
         }
-
     }, [currentUser])
 
     return (
@@ -53,9 +48,7 @@ const Dashboard = () => {
                 <CircularProgress/>
                 :
                 <div>
-
                     <br/>
-
                     {userRoleState.role === 'consultant' ?
                         <div>
                             <Grid container>
@@ -83,7 +76,6 @@ const Dashboard = () => {
                                     />
                                 }
                             </Grid>
-
                         </>
                 }
                 </div>

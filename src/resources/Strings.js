@@ -64,6 +64,9 @@ const Strings = () => {
             name: "Users",
             viewUsers: "View users",
             create: "Create user"
+        },
+        dropdowns: {
+            companyName: "Company Name"
         }
     })
 }

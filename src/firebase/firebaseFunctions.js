@@ -24,3 +24,14 @@ export const getUserRoles = async (id) => {
     const userRole =  roleData.data().role
     return userRole
 }
+
+export const getCompanies = async () => {
+    const companiesRef = await collection(db, 'Companies')
+    const docSnap = await getDocs(companiesRef)
+    return docSnap.docs.map(doc => ({...doc.data()}))
+}
+
+export const addCompanyName = async (companyName) => {
+    const companiesRef = await collection(db, 'Companies')
+    await addDoc(companiesRef, companyName)
+}

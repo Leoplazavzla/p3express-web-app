@@ -1,5 +1,6 @@
 const paths = {
     home: "/",
+    test: "/test",
     ganttChart: "/gantt-chart",
     kanban: "/kanban",
     dashboard: "/dashboard",
