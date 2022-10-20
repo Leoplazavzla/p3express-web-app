@@ -5,7 +5,7 @@ import Strings from "../resources/Strings";
 import {auth} from "../firebase/firebaseConfig";
 import BaseLayout from "../layouts/BaseLayout";
 import {Alert, Button, Grid, TextField} from "@mui/material";
-import {createRoles, addCompanyName} from "../firebase/firebaseFunctions";
+import {createRoles, addCompanyName, getCompanies} from "../firebase/firebaseFunctions";
 import CompanyNamesDropdown from "../components/dropdowns/CompanyNamesDropdown";
 import {useSelector} from "react-redux";
 
@@ -23,20 +23,34 @@ const Register = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [isValid, setIsValid] = useState(false);
+    const [companies, setCompanies] = useState([]);
     const [registeringUser, setRegisteringUser] = useState(false);
 
-    const adduserToDatabase = async (user) => {
-        const defaultRole = 'consultant';
-        await createRoles(user.uid, user.email, defaultRole)
+    const adduserToDatabase = async (user, companies) => {
+        const companyExist = companies.some((company) => companyNameState.companyName === company.companyName)
+        if (companyExist) {
+            const defaultRole = 'consultant';
+            await createRoles(user.uid, user.email, defaultRole)
+        } else {
+            const portfolioManager = "portfolio";
+            await createRoles(user.uid, user.email, portfolioManager)
+            const companyName = companyNameState
+            await addCompanyName(companyName)
+        }
     }
+
+    useEffect(() => {
+        getCompanies().then((res) => setCompanies(res))
+    }, [])
 
     useEffect(() => {
 
         if (currentUser) {
-            adduserToDatabase(currentUser)
-            navigate("/dashboard")
+            adduserToDatabase(currentUser, companies)
+            setTimeout(() => {
+                navigate("/dashboard")
+            }, 2000)
         }
-
     }, [registeringUser])
 
     const userRegister = async (e) => {
@@ -114,8 +128,6 @@ const Register = () => {
             //console.log("Is Valid?: ", isValid)
         }
     }
-
-
 
     return (
         <BaseLayout>
