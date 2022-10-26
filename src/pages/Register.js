@@ -8,12 +8,14 @@ import {Alert, Button, Grid, TextField} from "@mui/material";
 import {createRoles, addCompanyName, getCompanies} from "../firebase/firebaseFunctions";
 import CompanyNamesDropdown from "../components/dropdowns/CompanyNamesDropdown";
 import {useSelector} from "react-redux";
+import {useLocalStorage} from "../hooks/useLocalStorage";
 
 const Register = () => {
 
     let navigate = useNavigate();
     const {register, currentUser} = useAuth();
     const companyNameState = useSelector(state => state.companyName)
+    const [userRoleLocalStorage, setUserRoleLocalStorage] = useLocalStorage('userRole', '')
 
     const [registerEmail, setRegisterEmail] = useState('');
     const [registerPassword, setRegisterPassword] = useState('');
@@ -30,10 +32,14 @@ const Register = () => {
         const companyExist = companies.some((company) => companyNameState.companyName === company.companyName)
         if (companyExist) {
             const defaultRole = 'consultant';
-            await createRoles(user.uid, user.email, defaultRole)
+            await createRoles(user.uid, user.email, defaultRole).then(() => {
+                setUserRoleLocalStorage(defaultRole)
+            })
         } else {
             const portfolioManager = "portfolio";
-            await createRoles(user.uid, user.email, portfolioManager)
+            await createRoles(user.uid, user.email, portfolioManager).then(() => {
+                setUserRoleLocalStorage(portfolioManager)
+            })
             const companyName = companyNameState
             await addCompanyName(companyName)
         }

@@ -11,6 +11,7 @@ import ProjectsForm from "./layouts/projects/ProjectsForm";
 import ProjectsTable from "./pages/projects/ProjectsTable";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import TestPage from "./pages/TestPage";
 
 const AppRoutes = () => {
     return(
@@ -18,6 +19,7 @@ const AppRoutes = () => {
                 <Route exact path={paths.home} element={<Home/>} />
                 <Route exact path={paths.login} element={<Login/>} />
                 <Route exact path={paths.register} element={<Register/>} />
+                <Route exact path={paths.test} element={<TestPage/>} />
                 <Route path={paths.dashboard} element={<PrivateRoute> <Dashboard/> </PrivateRoute>} />
                 <Route path={paths.projects.newProject} element={<PrivateRoute> <ProjectsForm/> </PrivateRoute>} />
                 <Route path={paths.projects.list} element={<PrivateRoute> <ProjectsTable/> </PrivateRoute>} />

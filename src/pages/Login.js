@@ -5,11 +5,13 @@ import {useState} from "react";
 import {auth} from "../firebase/firebaseConfig"
 import {useAuth} from "../contexts/AuthContext";
 import {useNavigate} from "react-router-dom";
+import {useLocalStorage} from "../hooks/useLocalStorage";
 
 const Login = () => {
 
     let navigate = useNavigate();
     const {logIn} = useAuth();
+    const [userRoleLocalStorage, setUserRoleLocalStorage] = useLocalStorage('userRole', '')
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
