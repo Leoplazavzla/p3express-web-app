@@ -34,17 +34,17 @@ const CompanyNamesDropdown = () => {
                             setValue({
                                 companyName: newValue
                             });
-                            console.log('newvalue is string', value)
+                            //console.log('newvalue is string', value)
 
                         } else if (newValue && newValue.inputValue) {
                             // Create a new value from the user input
                             setValue({
                                 companyName: newValue.inputValue
                             });
-                            console.log('newvalue is inputvalue', value)
+                            //console.log('newvalue is inputvalue', value)
                         } else {
                             setValue(newValue);
-                            console.log('something else', value)
+                            //console.log('something else', value)
                         }
                     }}
                     filterOptions={(options, params) => {

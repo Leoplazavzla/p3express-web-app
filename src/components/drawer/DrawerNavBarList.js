@@ -7,9 +7,17 @@ import Strings from "../../resources/Strings";
 import paths from "../../resources/paths"
 import {Link} from "react-router-dom"
 import {useAuth} from "../../contexts/AuthContext";
+import {useLocalStorage} from "../../hooks/useLocalStorage";
 
 export default function DrawerNavBarList() {
+
     const {currentUser, logOut} = useAuth();
+    const [roleLocalStorage, setRoleLocalStorage] = useLocalStorage('userRole', '')
+
+    const signOutUser = () => {
+        setRoleLocalStorage('')
+        logOut()
+    }
 
     return (
         <Box sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
@@ -58,7 +66,7 @@ export default function DrawerNavBarList() {
                 {currentUser ?
                     <List>
                         <ListItem disablepadding={"false"} button>
-                            <ListItemButton onClick={logOut}>
+                            <ListItemButton onClick={signOutUser}>
                                 <ListItemText primary={Strings.navBar.logout}/>
                             </ListItemButton>
                         </ListItem>

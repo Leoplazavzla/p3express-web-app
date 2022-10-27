@@ -14,8 +14,7 @@ const Dashboard = () => {
     const {getUserRole, currentUser} = useAuth();
     const dispatch = useDispatch();
     const userRoleState = useSelector(state => state.roles)
-    const [userRoleLocal] = useLocalStorage('userRole', '')
-
+    const [userRoleLocal, setUserRoleLocal] = useLocalStorage('userRole', '')
 
     const [userRole, setUserRole] = useState('');
     const [projects, setProjects] = useState([]);
@@ -39,21 +38,21 @@ const Dashboard = () => {
     useEffect(() => {
         if(currentUser){
             const role = getUserRole(currentUser.uid).then((response) => {
+                setUserRoleLocal(response)
                 return setUserRole(response)
             })
         }
     }, [currentUser])
-    console.log(userRoleLocal)
 
     return (
         <BaseLayout>
             <h1>Dashboard</h1>
-            {userRoleState.role === '' ?
+            {userRoleLocal === '' ?
                 <CircularProgress/>
                 :
                 <div>
                     <br/>
-                    {userRoleState.role === 'consultant' ?
+                    {userRoleLocal === 'consultant' ?
                         <div>
                             <Grid container>
                                 {projects === [] ?
@@ -62,7 +61,7 @@ const Dashboard = () => {
                                     <CardComponent
                                         title={Strings.projects.name}
                                         data={projects}
-                                        role={userRoleState.role}
+                                        role={userRoleLocal}
                                     />
                                 }
                             </Grid>
@@ -76,7 +75,7 @@ const Dashboard = () => {
                                     <CardComponent
                                         title={Strings.projects.name}
                                         data={projects}
-                                        role={userRoleState.role}
+                                        role={userRoleLocal}
                                     />
                                 }
                             </Grid>

@@ -21,8 +21,7 @@ export const createRoles = async (id, email, role) => {
 export const getUserRoles = async (id) => {
     const rolesRef = doc(db, `users/${id}`)
     const roleData =  await getDoc(rolesRef)
-    const userRole =  roleData.data().role
-    return userRole
+    return await roleData.data().role
 }
 
 export const getCompanies = async () => {

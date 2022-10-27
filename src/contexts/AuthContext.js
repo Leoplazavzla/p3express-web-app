@@ -2,7 +2,6 @@ import React, {useContext, useState, useEffect} from "react";
 import {auth} from "../firebase/firebaseConfig";
 import {createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword} from 'firebase/auth'
 import {getUserRoles} from "../firebase/firebaseFunctions";
-import {useLocalStorage} from "../hooks/useLocalStorage";
 
 const AuthContext = React.createContext(1)
 
@@ -13,7 +12,6 @@ export function useAuth() {
 export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true)
-    const [setUserRoleLocal] = useLocalStorage('userRole', '')
 
     const register = async (auth, email, password) => {
         return await createUserWithEmailAndPassword(auth, email, password)
@@ -24,7 +22,6 @@ export function AuthProvider({children}) {
     }
 
     const logOut = () => {
-        setUserRoleLocal('')
         return signOut(auth)
     }
 
