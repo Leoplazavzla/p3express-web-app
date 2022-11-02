@@ -13,6 +13,7 @@ const UsersTable = () => {
                 title={"Create new user"}
             />
 
+            <UsersList/>
         </>
 
     )

@@ -40,22 +40,22 @@ export default function DrawerNavBarList() {
                             disablepadding={"false"}
                             color={"primary"} button
                             component={Link}
+                            to={paths.projects.list}>
+                            <ListItemIcon>
+                                <AccountTreeIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary={Strings.projects.name}/>
+                        </ListItem>
+                        <ListItem
+                            disablepadding={"false"}
+                            color={"primary"} button
+                            component={Link}
                             to={paths.users.list}
                         >
                             <ListItemIcon>
                                 <PeopleIcon/>
                             </ListItemIcon>
                             <ListItemText primary={Strings.navBar.users}/>
-                        </ListItem>
-                        <ListItem
-                            disablepadding={"false"}
-                            color={"primary"} button
-                            component={Link}
-                            to={paths.kanban}>
-                            <ListItemIcon>
-                                <TableChartIcon/>
-                            </ListItemIcon>
-                            <ListItemText primary={Strings.navBar.kanban}/>
                         </ListItem>
                     </List>
                 </nav>
