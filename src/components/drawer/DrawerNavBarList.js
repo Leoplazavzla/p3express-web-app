@@ -3,6 +3,7 @@ import {Box, Divider, List, ListItem, ListItemIcon, ListItemText, ListItemButton
 import {Dashboard as DashboardIcon} from "@mui/icons-material"
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import TableChartIcon from '@mui/icons-material/TableChart';
+import PeopleIcon from '@mui/icons-material/People';
 import Strings from "../../resources/Strings";
 import paths from "../../resources/paths"
 import {Link} from "react-router-dom"
@@ -39,12 +40,12 @@ export default function DrawerNavBarList() {
                             disablepadding={"false"}
                             color={"primary"} button
                             component={Link}
-                            to={paths.ganttChart}
+                            to={paths.users.list}
                         >
                             <ListItemIcon>
-                                <AccountTreeIcon/>
+                                <PeopleIcon/>
                             </ListItemIcon>
-                            <ListItemText primary={Strings.navBar.ganttChart}/>
+                            <ListItemText primary={Strings.navBar.users}/>
                         </ListItem>
                         <ListItem
                             disablepadding={"false"}

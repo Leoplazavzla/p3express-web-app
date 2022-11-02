@@ -9,7 +9,9 @@ const Strings = () => {
             kanban: "Kanban board",
             login: "Login",
             register: "Register",
-            logout: "Logout"
+            logout: "Logout",
+            users: "Users",
+            projects: "Projects"
         },
         register: {
             name: "Register",
