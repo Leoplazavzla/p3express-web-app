@@ -13,9 +13,9 @@ export const getProjectDocs = async (userEmail) => {
     return docSnap.docs.map(doc => ({...doc.data()}))
 }
 
-export const createRoles = async (id, email, role) => {
+export const createRoles = async (id, email, role, company) => {
     const usersRef = doc(db, `users/${id}`)
-    await setDoc(usersRef, {email: email, role: role})
+    await setDoc(usersRef, {email: email, role: role, company: company.companyName})
 }
 
 export const getUserRoles = async (id) => {

@@ -31,16 +31,17 @@ const Register = () => {
     const adduserToDatabase = async (user, companies) => {
         const companyExist = companies.some((company) => companyNameState.companyName === company.companyName)
         if (companyExist) {
+            const companyName = companyNameState
             const defaultRole = 'consultant';
-            await createRoles(user.uid, user.email, defaultRole).then(() => {
+            await createRoles(user.uid, user.email, defaultRole, companyName).then(() => {
                 setUserRoleLocalStorage(defaultRole)
             })
         } else {
+            const companyName = companyNameState
             const portfolioManager = "portfolio";
-            await createRoles(user.uid, user.email, portfolioManager).then(() => {
+            await createRoles(user.uid, user.email, portfolioManager, companyName).then(() => {
                 setUserRoleLocalStorage(portfolioManager)
             })
-            const companyName = companyNameState
             await addCompanyName(companyName)
         }
     }
