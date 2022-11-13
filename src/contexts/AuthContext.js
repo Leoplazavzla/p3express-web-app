@@ -1,12 +1,33 @@
 import React, {useContext, useState, useEffect} from "react";
 import {auth} from "../firebase/firebaseConfig";
-import {createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword} from 'firebase/auth'
+import {
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut,
+    signInWithEmailAndPassword,
+    sendSignInLinkToEmail
+} from 'firebase/auth'
 import {getUserRoles} from "../firebase/firebaseFunctions";
 
 const AuthContext = React.createContext(1)
 
 export function useAuth() {
     return useContext(AuthContext)
+}
+
+const actionCodeSettings = {
+    url: 'localhost',
+    handleCodeInApp: true,
+    iOS: {
+        bundleId: 'com.example.ios'
+    },
+    android: {
+        packageName: 'com.example.android',
+        installApp: true,
+        minimumVersion: '12'
+    },
+    dynamicLinkDomain: 'example.page.link'
+
 }
 
 export function AuthProvider({children}) {
@@ -25,6 +46,10 @@ export function AuthProvider({children}) {
         return signOut(auth)
     }
 
+    const createUserByPortfolioManager = async (email) => {
+        await sendSignInLinkToEmail(auth, email, actionCodeSettings)
+    }
+
     const getUserRole = async (id) => {
         return await getUserRoles(id)
     }
@@ -32,6 +57,11 @@ export function AuthProvider({children}) {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user)
+            if(user) {
+                user.getIdTokenResult().then((result) => {
+                    console.log(result)
+                })
+            }
             setLoading(false)
         })
         return unsubscribe
@@ -42,7 +72,8 @@ export function AuthProvider({children}) {
         getUserRole,
         register,
         logOut,
-        logIn
+        logIn,
+        createUserByPortfolioManager,
     }
     return (
         <AuthContext.Provider value={value}>

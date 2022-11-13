@@ -2,14 +2,15 @@ import React, {useEffect, useState} from "react";
 import {Button, Grid, TextField} from "@mui/material";
 import Strings from "../../resources/Strings";
 import {useSelector} from "react-redux";
-import {auth} from '../../firebase/firebaseConfig'
 import {useAuth} from "../../contexts/AuthContext";
 import {createRoles, getUserData} from "../../firebase/firebaseFunctions";
 
 const UsersForm = () => {
 
     const userState = useSelector(state => state.companyName)
-    const {register, currentUser} = useAuth()
+    const {currentUser, createUserByPortfolioManager} = useAuth()
+
+    console.log(currentUser)
 
     const [userData, setUserData] = useState({})
 
@@ -21,7 +22,6 @@ const UsersForm = () => {
 
     const [user, setUser] = useState({
         email: '',
-        password: '',
 
     })
 
@@ -32,12 +32,14 @@ const UsersForm = () => {
         }
         )
     }
+    console.log(userData)
 
     const addNewUser = async (e) => {
         e.preventDefault();
-        /*const defaultRole = 'consultant'
-        await register(auth, user.email, user.password)
-        await createRoles(user.email, defaultRole, userData.email, userData.company)*/
+        const defaultRole = 'consultant'
+        await createUserByPortfolioManager(user.email)
+        await createRoles(user.email, defaultRole, userData.email, userData.company)
+        //await register(auth, user.email, user.password)
 
     }
 
@@ -50,17 +52,6 @@ const UsersForm = () => {
                     type={"email"}
                     label={Strings.register.email}
                     value={user.email}
-                    onChange={handleChange}
-                />
-
-            </Grid>
-            <Grid item>
-                <TextField
-                    name={"password"}
-                    margin="normal"
-                    type={"password"}
-                    label={Strings.register.password}
-                    value={user.password}
                     onChange={handleChange}
                 />
 

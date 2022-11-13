@@ -1,5 +1,6 @@
-import {addDoc, collection, doc, getDoc, getDocs, setDoc} from "firebase/firestore";
+import {addDoc, collection, doc, getDoc, getDocs, setDoc, } from "firebase/firestore";
 import db from '../firebase/firebaseConfig'
+
 
 
 export const addProject = async(userEmail, projectData) => {
@@ -17,6 +18,8 @@ export const createRoles = async (id, email, role, company) => {
     const usersRef = doc(db, `users/${id}`)
     await setDoc(usersRef, {email: email, role: role, company: company.companyName})
 }
+
+
 
 export const getUserData = async (id) => {
     const userRef = doc(db, `users/${id}`)
