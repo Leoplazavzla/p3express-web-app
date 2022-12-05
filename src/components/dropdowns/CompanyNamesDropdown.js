@@ -79,7 +79,7 @@ const CompanyNamesDropdown = () => {
                     filterSelectedOptions
                     renderOption={(props, option) => {
                         return (
-                            <li {...props} style={{marginBottom: "3px"}}>
+                            <li {...props} style={{marginBottom: "3px"}} key={option.companyName}>
                                 {option.companyName}
                             </li>
                         )

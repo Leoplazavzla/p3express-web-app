@@ -9,6 +9,8 @@ import {createRoles, addCompanyName, getCompanies} from "../firebase/firebaseFun
 import CompanyNamesDropdown from "../components/dropdowns/CompanyNamesDropdown";
 import {useSelector} from "react-redux";
 import {useLocalStorage} from "../hooks/useLocalStorage";
+import {functions} from '../firebase/firebaseConfig'
+import {httpsCallable} from 'firebase/functions'
 
 const Register = () => {
 
@@ -31,16 +33,25 @@ const Register = () => {
     const adduserToDatabase = async (user, companies) => {
         const companyExist = companies.some((company) => companyNameState.companyName === company.companyName)
         if (companyExist) {
+            console.log('company exists')
             const companyName = companyNameState
             const defaultRole = 'consultant';
             await createRoles(user.uid, user.email, defaultRole, companyName).then(() => {
                 setUserRoleLocalStorage(defaultRole)
+            })
+            const addConsultant =  httpsCallable(functions, 'addConsultantRole2')
+            addConsultant(user).then(() => {
+                console.log('consultant added')
             })
         } else {
             const companyName = companyNameState
             const portfolioManager = "portfolio";
             await createRoles(user.uid, user.email, portfolioManager, companyName).then(() => {
                 setUserRoleLocalStorage(portfolioManager)
+            })
+            const addCustomClaims = httpsCallable(functions, 'addPortfolioRole');
+            addCustomClaims({user: user}).then((res) => {
+                console.log(res)
             })
             await addCompanyName(companyName)
         }
