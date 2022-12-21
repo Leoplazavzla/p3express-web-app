@@ -35,7 +35,9 @@ export function AuthProvider({children}) {
     const [loading, setLoading] = useState(true)
 
     const register = async (auth, email, password) => {
-        return await createUserWithEmailAndPassword(auth, email, password)
+        return await createUserWithEmailAndPassword(auth, email, password).then(() => {
+            signOut(auth)
+        })
     }
 
     const logIn = (auth, email, password) => {

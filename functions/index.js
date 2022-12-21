@@ -38,9 +38,8 @@ exports.addConsultantRole = functions.https.onCall((data, context) => {
 
 exports.addConsultantRole2 = functions.auth.user().onCreate(async (user) => {
     const customClaims = {
-        consultant: true
+        role: 'consultant'
     }
-
     try {
         await getAuth().setCustomUserClaims(user.uid, customClaims)
     }catch (e) {
@@ -49,6 +48,28 @@ exports.addConsultantRole2 = functions.auth.user().onCreate(async (user) => {
     console.log(user)
 })
 
+exports.addProjectManagerRole = functions.auth.user().onCreate(async (user) => {
+    const customClaims = {
+        role: 'projectManager'
+    }
+    try {
+        await getAuth().setCustomUserClaims(user.uid, customClaims)
+    }catch (e) {
+        console.log(e)
+    }
+    console.log(user)
+})
 
+exports.addPortfolioRole2 = functions.auth.user().onCreate(async (user) => {
+    const customClaims = {
+        role: 'portfolioManager'
+    }
+    try {
+        await getAuth().setCustomUserClaims(user.uid, customClaims)
+    }catch (e) {
+        console.log(e)
+    }
+    console.log(user)
+})
 
 // Set admin privilege on the user corresponding to uid.

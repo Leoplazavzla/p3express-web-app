@@ -45,12 +45,12 @@ const Register = () => {
             })
         } else {
             const companyName = companyNameState
-            const portfolioManager = "portfolio";
+            const portfolioManager = "portfolioManager";
             await createRoles(user.uid, user.email, portfolioManager, companyName).then(() => {
                 setUserRoleLocalStorage(portfolioManager)
             })
-            const addCustomClaims = httpsCallable(functions, 'addPortfolioRole');
-            addCustomClaims({user: user}).then((res) => {
+            const addCustomClaims = httpsCallable(functions, 'addPortfolioRole2');
+            addCustomClaims(user).then((res) => {
                 console.log(res)
             })
             await addCompanyName(companyName)
