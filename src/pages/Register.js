@@ -65,9 +65,9 @@ const Register = () => {
 
         if (currentUser) {
             adduserToDatabase(currentUser, companies)
-            setTimeout(() => {
+            /*setTimeout(() => {
                 navigate("/dashboard")
-            }, 2000)
+            }, 2000)*/
         }
     }, [registeringUser])
 

@@ -37,11 +37,11 @@ exports.addConsultantRole = functions.https.onCall((data, context) => {
 })
 
 exports.addConsultantRole2 = functions.auth.user().onCreate(async (user) => {
-    const customClaims = {
+    const consultantRoleClaims = {
         role: 'consultant'
     }
     try {
-        await getAuth().setCustomUserClaims(user.uid, customClaims)
+        await getAuth().setCustomUserClaims(user.uid, consultantRoleClaims)
     }catch (e) {
         console.log(e)
     }
@@ -49,11 +49,11 @@ exports.addConsultantRole2 = functions.auth.user().onCreate(async (user) => {
 })
 
 exports.addProjectManagerRole = functions.auth.user().onCreate(async (user) => {
-    const customClaims = {
+    const projectManagerClaims = {
         role: 'projectManager'
     }
     try {
-        await getAuth().setCustomUserClaims(user.uid, customClaims)
+        await getAuth().setCustomUserClaims(user.uid, projectManagerClaims)
     }catch (e) {
         console.log(e)
     }
@@ -61,11 +61,11 @@ exports.addProjectManagerRole = functions.auth.user().onCreate(async (user) => {
 })
 
 exports.addPortfolioRole2 = functions.auth.user().onCreate(async (user) => {
-    const customClaims = {
+    const portfolioRoleClaims = {
         role: 'portfolioManager'
     }
     try {
-        await getAuth().setCustomUserClaims(user.uid, customClaims)
+        await getAuth().setCustomUserClaims(user.uid, portfolioRoleClaims)
     }catch (e) {
         console.log(e)
     }
