@@ -36,7 +36,6 @@ export function AuthProvider({children}) {
 
     const register = async (auth, email, password) => {
         return await createUserWithEmailAndPassword(auth, email, password).then(() => {
-            signOut(auth)
         })
     }
 
