@@ -2,10 +2,6 @@
 function UserTableFormatter() {
     return [
         {
-            accessorKey: 'name',
-            header: 'Name'
-        },
-        {
             accessorKey: 'email',
             header: 'Email'
         },

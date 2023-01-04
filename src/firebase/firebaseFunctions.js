@@ -1,5 +1,6 @@
 import {addDoc, collection, doc, getDoc, getDocs, setDoc, } from "firebase/firestore";
 import db from '../firebase/firebaseConfig'
+import {logout} from "../redux/userSlice";
 
 
 
@@ -16,10 +17,8 @@ export const getProjectDocs = async (userEmail) => {
 
 export const createRoles = async (id, email, role, company) => {
     const usersRef = doc(db, `users/${id}`)
-    await setDoc(usersRef, {email: email, role: role, company: company.companyName})
+    await setDoc(usersRef, {id: id, email: email, role: role, company: company.companyName})
 }
-
-
 
 export const getUserData = async (id) => {
     const userRef = doc(db, `users/${id}`)
@@ -37,6 +36,17 @@ export const getCompanies = async () => {
     const companiesRef = await collection(db, 'Companies')
     const docSnap = await getDocs(companiesRef)
     return docSnap.docs.map(doc => ({...doc.data()}))
+}
+
+export const getUsersByCompany = async (company) => {
+    const usersRef = await collection(db, 'users')
+    const usersSnap = await getDocs(usersRef)
+    const usersArray = usersSnap.docs.filter(doc => (company === doc.data().company ))
+    return usersArray.map(doc => (doc.data()))
+    //return console.log(usersSnap.docs.map(doc => ({...doc.data().company})))
+    //return console.log(usersSnap.docs.map(doc => (doc.data().company)))
+
+
 }
 
 export const addCompanyName = async (companyName) => {

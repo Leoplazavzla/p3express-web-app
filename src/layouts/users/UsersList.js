@@ -1,10 +1,16 @@
 import MaterialReactTable from "material-react-table";
 import UserTableFormatter from "../../tableFormatters/UserTableFormatter";
+import {useEffect, useState} from "react";
 
-const UsersList = () => {
+const UsersList = (props) => {
+    console.log(props.userData)
+
+    const [data, setData] = useState()
+
     return (
         <>
-            <MaterialReactTable columns={UserTableFormatter} data={[]} />
+            {props && <MaterialReactTable columns={UserTableFormatter} data={props.userData} /> }
+
         </>
     )
 }

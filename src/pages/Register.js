@@ -34,7 +34,7 @@ const Register = () => {
     const adduserToDatabase = async (user, companies) => {
         const companyExist = companies.some((company) => companyNameState.companyName === company.companyName)
         console.log(companyExist)
-        if (companyExist === true) {
+        if (companyExist === false) {
             console.log('company dont exists')
             const companyName = companyNameState
             const portfolioManager = 'portfolioManager';
@@ -42,12 +42,10 @@ const Register = () => {
                 setUserRoleLocalStorage(portfolioManager)
             })
             const addCustomClaims = httpsCallable(functions, 'addPortfolioRoleClaims');
-            addCustomClaims(user).then((res) => {
-                console.log(res)
-            })
+            addCustomClaims(user)
             await addCompanyName(companyName)
 
-        } else if (companyExist === false){
+        } else if (companyExist === true){
             console.log('company exists')
             const companyName = companyNameState
             const defaultRole = "consultant";
