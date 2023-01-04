@@ -22,7 +22,6 @@ const UsersTable = () => {
         if(userCompany){
             getUsersByCompany(userCompany).then((res) => {
                 setUsersList(res)
-                console.log(res)
             })
         }
     }, [userCompany])
@@ -35,7 +34,6 @@ const UsersTable = () => {
                 title={"Create new user"}
             />
             {usersList === [] ? <CircularProgress/> : <UsersList userData={usersList}/>}
-
 
         </>
 

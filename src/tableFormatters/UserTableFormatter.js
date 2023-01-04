@@ -14,6 +14,7 @@ function UserTableFormatter() {
             header: 'Role'
         },
 
+
     ]
 }
 
