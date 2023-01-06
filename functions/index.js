@@ -4,7 +4,6 @@ const { getAuth } = require('firebase-admin/auth');
 admin.initializeApp();
 
 exports.addConsultantRoleClaims = functions.auth.user().onCreate(async (user) => {
-    console.log('entering consultant')
     const consultantRoleClaims = {
         role: 'consultant'
     };
@@ -16,7 +15,6 @@ exports.addConsultantRoleClaims = functions.auth.user().onCreate(async (user) =>
 });
 
 exports.addPortfolioRoleClaims = functions.auth.user().onCreate(async (user) => {
-    console.log('entering portfolio')
     const portfolioRoleClaims = {
         role: 'portfolioManager'
     };
@@ -26,5 +24,17 @@ exports.addPortfolioRoleClaims = functions.auth.user().onCreate(async (user) => 
         console.log(e);
     }
 });
+
+exports.changeUserRoleTest = functions.https.onCall(async ({data}, context) => {
+    const userData = {
+        userId: data.uid,
+        role: data.role
+    }
+    try {
+        return await getAuth().setCustomUserClaims(userData.userId, userData.role);
+    }catch (e) {
+        console.log(e);
+    }
+})
 
 // Set admin privilege on the user corresponding to uid.
