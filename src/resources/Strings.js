@@ -39,8 +39,8 @@ const Strings = () => {
         projects: {
             new: "New project",
             name: "Projects",
-            viewProjects: "View projects",
-            create: "Create project",
+            viewProjects: "Projects",
+            create: "Add project",
             title: "Project title",
             portfolio: "Portfolio / Program",
             sponsor: "Sponsor",

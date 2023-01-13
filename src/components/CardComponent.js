@@ -39,7 +39,7 @@ const CardComponent = (props) => {
                     <Card>
                         <CardHeader title={props.title} component={"h3"}/>
                         <CardContent>
-                            {`${props.data.length} projects`}
+                            {`${props.data.length}`}
                         </CardContent>
 
                         {props.role === 'consultant' ?

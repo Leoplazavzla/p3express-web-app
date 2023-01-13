@@ -4,7 +4,7 @@ import {useAuth} from "../contexts/AuthContext";
 import {useDispatch, useSelector} from "react-redux";
 import {getRole} from "../redux/rolesSlice";
 import {CircularProgress, Grid} from "@mui/material";
-import {getProjectDocs} from "../firebase/firebaseFunctions";
+import {getProjectDocs, getUserData, getUserNumberByCompany} from "../firebase/firebaseFunctions";
 import Strings from "../resources/Strings";
 import CardComponent from '../components/CardComponent'
 import {useLocalStorage} from "../hooks/useLocalStorage";
@@ -15,6 +15,7 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const userRoleState = useSelector(state => state.roles)
     const [userRoleLocal, setUserRoleLocal] = useLocalStorage('userRole', '')
+    const [userNumber, setUserNumber] = useState()
 
     const [userRole, setUserRole] = useState('');
     const [projects, setProjects] = useState([]);
@@ -35,12 +36,22 @@ const Dashboard = () => {
         }
     }, [dispatch, userRole])
 
-    useEffect(() => {
+    useEffect( () => {
         if (currentUser) {
+            console.log(currentUser)
             const role = getUserRole(currentUser.uid).then((response) => {
                 setUserRoleLocal(response)
                 return setUserRole(response)
             })
+            getUserData(currentUser.uid).then((res) => {
+                console.log(res.company)
+                getUserNumberByCompany(res.company).then((res) => {
+                    console.log(res)
+                    setUserNumber(res)
+                })
+            })
+
+
         }
     }, [currentUser])
 
@@ -68,17 +79,25 @@ const Dashboard = () => {
                         </div>
                         :
                         <>
-                            <Grid container>
+                            <Grid container spacing={2}>
                                 {projects === [] ?
                                     <div></div>
                                     :
-                                    <CardComponent
-                                        title={Strings.projects.name}
-                                        data={projects}
+                                    <>
+                                        <CardComponent
+                                            title={Strings.projects.name}
+                                            data={projects}
+                                            role={userRoleLocal}
+                                        />
+                                        <CardComponent
+                                        title={Strings.users.name}
+                                        data={userNumber}
                                         role={userRoleLocal}
-                                    />
+                                        />
+                                    </>
                                 }
                             </Grid>
+
                         </>
                     }
                 </div>

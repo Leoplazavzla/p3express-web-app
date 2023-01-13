@@ -1,7 +1,7 @@
 import BaseLayout from "../layouts/BaseLayout";
 import {Alert, Button, Grid, TextField} from "@mui/material";
 import Strings from "../resources/Strings";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {auth} from "../firebase/firebaseConfig"
 import {useAuth} from "../contexts/AuthContext";
 import {useNavigate} from "react-router-dom";
@@ -15,10 +15,6 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-
-    })
 
     const singIn = async (e) => {
         e.preventDefault()

@@ -166,7 +166,6 @@ const Register = () => {
                         error={emailError}
                     />
                 </Grid>
-
                 <Grid item>
                     <TextField
                         margin="normal"
