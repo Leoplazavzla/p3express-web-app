@@ -25,13 +25,14 @@ exports.addPortfolioRoleClaims = functions.auth.user().onCreate(async (user) => 
     }
 });
 
-exports.changeUserRoleTest = functions.https.onCall(async ({data}, context) => {
+exports.changeUserRoleTest = functions.https.onCall(async (data, context) => {
+    console.log(data)
     const userData = {
-        userId: data.uid,
+        userId: data.id,
         role: data.role
     }
     try {
-        return await getAuth().setCustomUserClaims(userData.userId, userData.role);
+        return await getAuth().setCustomUserClaims(data.id, {role: data.role});
     }catch (e) {
         console.log(e);
     }

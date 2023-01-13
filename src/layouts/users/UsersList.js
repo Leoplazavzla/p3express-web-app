@@ -12,6 +12,7 @@ import {
 import {Delete} from '@mui/icons-material';
 import {functions} from '../../firebase/firebaseConfig'
 import {httpsCallable} from 'firebase/functions'
+import {updateUserRole} from "../../firebase/firebaseFunctions";
 
 const UsersList = (props) => {
 
@@ -41,8 +42,14 @@ const UsersList = (props) => {
 
         }
         console.log(userData)
-        /*const changeRole = httpsCallable(functions, 'changeUserRoleTest')
-        await changeRole(userData)*/
+        const changeRole = httpsCallable(functions, 'changeUserRoleTest')
+        await updateUserRole(userData.id, userData.role)
+        try {
+            await changeRole(userData)
+        }catch(err) {
+            console.log(err)
+        }
+
 
     }
 

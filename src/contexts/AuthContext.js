@@ -60,7 +60,7 @@ export function AuthProvider({children}) {
             setCurrentUser(user)
             if(user) {
                 user.getIdTokenResult().then((result) => {
-                    //console.log(result)
+                    console.log(result)
                 })
             }
             setLoading(false)

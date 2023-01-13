@@ -1,4 +1,4 @@
-import {addDoc, collection, doc, getDoc, getDocs, setDoc, } from "firebase/firestore";
+import {addDoc, collection, doc, getDoc, getDocs, setDoc, updateDoc,} from "firebase/firestore";
 import db from '../firebase/firebaseConfig'
 import {logout} from "../redux/userSlice";
 
@@ -18,6 +18,12 @@ export const getProjectDocs = async (userEmail) => {
 export const createRoles = async (id, email, role, company) => {
     const usersRef = doc(db, `users/${id}`)
     await setDoc(usersRef, {id: id, email: email, role: role, company: company.companyName})
+}
+
+export const updateUserRole = async (id, role) => {
+    const userRef = doc(db, `users/${id}`);
+    await updateDoc(userRef, {role: role})
+
 }
 
 export const getUserData = async (id) => {
