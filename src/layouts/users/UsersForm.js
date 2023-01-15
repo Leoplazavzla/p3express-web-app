@@ -10,8 +10,6 @@ const UsersForm = () => {
     const userState = useSelector(state => state.companyName)
     const {currentUser, createUserByPortfolioManager} = useAuth()
 
-    console.log(currentUser)
-
     const [userData, setUserData] = useState({})
 
     useEffect(() => {
@@ -22,7 +20,6 @@ const UsersForm = () => {
 
     const [user, setUser] = useState({
         email: '',
-
     })
 
     const handleChange = (e) => {
@@ -32,7 +29,6 @@ const UsersForm = () => {
         }
         )
     }
-    console.log(userData)
 
     const addNewUser = async (e) => {
         e.preventDefault();
@@ -40,7 +36,6 @@ const UsersForm = () => {
         await createUserByPortfolioManager(user.email)
         await createRoles(user.email, defaultRole, userData.email, userData.company)
         //await register(auth, user.email, user.password)
-
     }
 
     return (
@@ -54,7 +49,6 @@ const UsersForm = () => {
                     value={user.email}
                     onChange={handleChange}
                 />
-
             </Grid>
             <Grid item>
                 <Button
@@ -63,12 +57,9 @@ const UsersForm = () => {
                 >
                     {Strings.register.create}
                 </Button>
-
             </Grid>
-
         </Grid>
     )
-
 }
 
 export default UsersForm;

@@ -27,7 +27,6 @@ const actionCodeSettings = {
         minimumVersion: '12'
     },
     dynamicLinkDomain: 'example.page.link'
-
 }
 
 export function AuthProvider({children}) {
@@ -60,7 +59,7 @@ export function AuthProvider({children}) {
             setCurrentUser(user)
             if(user) {
                 user.getIdTokenResult().then((result) => {
-                    console.log(result)
+                    //console.log(result)
                 })
             }
             setLoading(false)

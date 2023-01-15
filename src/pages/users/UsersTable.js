@@ -34,9 +34,7 @@ const UsersTable = () => {
                 title={"Create new user"}
             />
             {usersList === [] ? <CircularProgress/> : <UsersList userData={usersList}/>}
-
         </>
-
     )
 }
 

@@ -38,20 +38,15 @@ const Dashboard = () => {
 
     useEffect( () => {
         if (currentUser) {
-            console.log(currentUser)
             const role = getUserRole(currentUser.uid).then((response) => {
                 setUserRoleLocal(response)
                 return setUserRole(response)
             })
             getUserData(currentUser.uid).then((res) => {
-                console.log(res.company)
                 getUserNumberByCompany(res.company).then((res) => {
-                    console.log(res)
                     setUserNumber(res)
                 })
             })
-
-
         }
     }, [currentUser])
 
@@ -97,7 +92,6 @@ const Dashboard = () => {
                                     </>
                                 }
                             </Grid>
-
                         </>
                     }
                 </div>
